@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "settyl-e992"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "settyl-e992"
+  template:
+    metadata:
+      labels:
+        app: "settyl-e992"
+    spec:
+      containers:
+        - name: "settyl-e992"
+          image: "phase1.azurecr.io/settyl"
+          ports:
+          - containerPort: 5678
