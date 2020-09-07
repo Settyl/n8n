@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: "workflow"
-          image: "phase1.azurecr.io/n8n"
+          image: "phase1.azurecr.io/settyl"
           ports:
           - containerPort: 5678
