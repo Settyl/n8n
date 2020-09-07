@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "settyl-e992"
+  name: "workflow"
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "settyl-e992"
+      app: "workflow"
   template:
     metadata:
       labels:
-        app: "settyl-e992"
+        app: "workflow"
     spec:
       containers:
-        - name: "settyl-e992"
-          image: "phase1.azurecr.io/settyl"
+        - name: "workflow"
+          image: "phase1.azurecr.io/n8n"
           ports:
           - containerPort: 5678
