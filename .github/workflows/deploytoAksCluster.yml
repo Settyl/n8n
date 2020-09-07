@@ -14,25 +14,17 @@ jobs:
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE/docker/images/settyl" -f  "docker/images/settyl/Dockerfile" -t phase1.azurecr.io/settyl:${{ github.sha }}
-        docker push phase1.azurecr.io/settyl:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/docker/images/n8n" -f  "docker/images/n8n/Dockerfile" -t phase1.azurecr.io/n8n:${{ github.sha }}
+        docker push phase1.azurecr.io/n8n:${{ github.sha }}
     
     - uses: azure/k8s-set-context@v1
       with:
          kubeconfig: ${{ secrets.aks_settyl_kubeConfig }}
       id: login
-    
-    - name: Create namespace
-      run: |
-        namespacePresent=`kubectl get namespace | grep settyl424d | wc -l`
-        if [ $namespacePresent -eq 0 ]
-        then
-            echo `kubectl create namespace settyl424d`
-        fi
 
     - uses: azure/k8s-create-secret@v1
       with:
-        namespace: settyl424d
+        namespace: ingress-basic
         container-registry-url: phase1.azurecr.io
         container-registry-username: ${{ secrets.acr_phase1_username }}
         container-registry-password: ${{ secrets.acr_phase1_password }}
@@ -40,7 +32,7 @@ jobs:
        
     - uses: azure/k8s-deploy@v1
       with:
-        namespace: settyl424d
+        namespace: ingress-basic
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
