@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "workflow"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "workflow"
+  template:
+    metadata:
+      labels:
+        app: "workflow"
+    spec:
+      containers:
+        - name: "workflow"
+          image: "phase1.azurecr.io/settyl"
+          ports:
+          - containerPort: 5678
